@@ -12,6 +12,90 @@ Informally the grammar of spreadsheet formula language is:
 - An index is a pair of integers. General format for an index I of a cell is [i, j] Examples are [0,0], [3,4], …
 - A range consists of two indices standing for the top left index and the right bottom index. General format for an range R of cells is ( I : I ) with an example being ( [ 5, 6] : [100, 6] )
 
+In this spreadsheet, indexing will begin at index 0, and unlike Excel will be numeric for both rows and columns.
+
+Formulas will be of 3 kinds: overall, row-wise, column-wise. The cell selection would be made by specifying the top-left and bottom-right cell indices. Results would be filled into the sheet by specifying only the top-left cell of the target cell/row/column.
+
+The function operations can be one of the following:
+
+Type 1 (unary operations on ranges of cells):
+
+- COUNT
+- ROWCOUNT
+- COLCOUNT
+- SUM
+- ROWSUM
+- COLSUM
+- AVG
+- ROWAVG
+- COLAVG
+- MIN
+- ROWMIN
+- COLMIN
+- MAX
+- ROWMAX
+- COLMAX
+
+Type 2 (binary operations on ranges of cells):
+
+- ADD
+- SUBT
+- MULT
+- DIV
+
+Type 1 formula (unary operations on a range of cells)
+
+- I := FUNC R ;
+
+Type 2 formula (binary operations on ranges)
+
+- I := FUNC R R ;
+- I := FUNC C R ;
+- I := FUNC R C ;
+- I := FUNC I R ;
+- I := FUNC R I ;
+
+## Examples
+
+Initial Sheet:
+|     |     |     |     |     |     |
+|-----|-----|-----|-----|-----|-----|
+|  1  | 10  | 100 |     |     |     |
+|  2  | 20  | 200 |     |     |     |
+|  3  | 30  | 300 |     |     |     |
+
+[0, 3] := ADD ( [0, 0] : [2, 0] ) ( [0, 1] : [2, 1] )
+
+|     |     |     |     |     |     |
+|-----|-----|-----|-----|-----|-----|
+|  1  | 10  | 100 | 11  |     |     |
+|  2  | 20  | 200 | 22  |     |     |
+|  3  | 30  | 300 | 33  |     |     |
+
+[0, 4] := MULT ( [0, 0] : [2, 0] ) ( [0, 2] : [2, 2] )
+
+|     |     |     |     |     |     |
+|-----|-----|-----|-----|-----|-----|
+|  1  | 10  | 100 | 11  | 100 |     |
+|  2  | 20  | 200 | 22  | 400 |     |
+|  3  | 30  | 300 | 33  | 900 |     |
+
+[0, 5] := ADD ( [0, 4] : [2, 4]) 10.0
+
+|     |     |     |     |     |     |
+|-----|-----|-----|-----|-----|-----|
+|  1  | 10  | 100 | 11  | 100 | 110 |
+|  2  | 20  | 200 | 22  | 400 | 410 |
+|  3  | 30  | 300 | 33  | 900 | 910 |
+
+[0, 3] := DIV ( [0, 4] : [2, 4] ) [1, 1]
+
+|     |     |     |     |     |     |
+|-----|-----|-----|-----|-----|-----|
+|  1  | 10  | 100 | 5   | 100 | 110 |
+|  2  | 20  | 200 | 20  | 400 | 410 |
+|  3  | 30  | 300 | 45  | 900 | 910 |
+
 ## Usage
 
 Compile:
