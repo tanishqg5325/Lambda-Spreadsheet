@@ -5,7 +5,7 @@ make:
 	ocamlc -c parser.ml
 	ocamllex lexer.mll
 	ocamlc -c lexer.ml
-	ocamlc -o excel lexer.cmo parser.cmo backend.cmo str.cma test.ml
+	ocamlc -o excel lexer.cmo parser.cmo backend.cmo str.cma sheet.ml
 
 clean:
 	rm lexer.ml parser.mli parser.ml excel
