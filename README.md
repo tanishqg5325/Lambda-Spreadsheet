@@ -110,6 +110,10 @@ make
 ./excel <csv_file_path> <m> <n> <formulas_file_path>
 ```
 
+m = number of rows
+
+n = number of columns
+
 ### Example
 
 ```bash
